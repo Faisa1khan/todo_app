@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import "./form.css";
 const Form = ({ value }) => {
-  const { state, dispatch, input, setInput } = value;
+  const { dispatch } = value;
+  const [input, setInput] = useState("");
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!input) return;
+    dispatch({ type: "ADD_TODO", input: input });
+    setInput("");
+  };
 
   return (
     <React.Fragment>
-      <form className="form" onSubmit={e => e.preventDefault()}>
+      <form className="form" onSubmit={handleSubmit}>
         <label htmlFor="inputField" className="label">
           Add a todo
           <input
@@ -15,9 +22,7 @@ const Form = ({ value }) => {
             onChange={e => setInput(e.target.value)}
           />
         </label>
-        <button className="button" onClick={() => dispatch({ type: "add" })}>
-          Save Todo
-        </button>
+        <button className="button">Save Todo</button>
       </form>
     </React.Fragment>
   );
