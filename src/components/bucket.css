@@ -1,0 +1,46 @@
+/* .bucket {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem auto;
+  max-width: 500px;
+  padding: 0;
+} */
+
+h1 {
+  text-align: center;
+}
+
+.bucket-list-header {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  max-width: 500px;
+}
+
+.bucket-list {
+  margin: 5rem 0 0 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row wrap;
+  list-style-type: none;
+}
+.bucket-list li {
+  margin-right: 2em;
+}
+
+/* bucket */
+
+.bucket-inner {
+  display: flex;
+}
+
+.bucket {
+  background-color: green;
+  color: black;
+}
+.bucket ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

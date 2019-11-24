@@ -2,9 +2,11 @@ import React, { useState, useRef } from "react";
 import "./todo.css";
 const Todo = ({ value }) => {
   const { todo, dispatch } = value;
+
   const [edit, setEdit] = useState(false);
 
   const [changeValue, setChangeValue] = useState("");
+
   const inputEl = useRef();
 
   const handleDelete = id => {

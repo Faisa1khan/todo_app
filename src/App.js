@@ -1,67 +1,37 @@
 import React, { useReducer, useEffect } from "react";
-import "./global.css";
-import Todo from "./components/todo";
-import Form from "./components/form";
+import ReactDom from "react-dom";
+import Home from "./home";
+import { Router, Link } from "@reach/router";
+import Buckets from "./components/buckets";
+import { reducer } from "./reducer";
+import { intialValue } from "./intialState";
 
-// // const Alltodos = localStorage.setItem("todos", []);
-// const getStateFromLocaleStorage = () => {
-//   const storage = localStorage.getItem("counterState");
-//   if (storage) return JSON.parse(storage);
-//   return { count: 0 };
-// };
-
-function App() {
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "ADD_TODO":
-        return [
-          ...state,
-          { id: Date.now(), text: action.input, completed: false }
-        ];
-      case "REMOVE_TODO":
-        return [...state.filter(todo => todo.id !== action.id)];
-
-      case "TOGGLE_TODO":
-        return state.map(todo =>
-          todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
-        );
-      case "EDIT_TODO":
-        return state.map(todo =>
-          todo.id === action.id ? { ...todo, text: action.value } : todo
-        );
-      default:
-        return state;
-    }
-  };
-
-  const intialValue = JSON.parse(window.localStorage.getItem("todos")) || [];
-
-  const [todos, dispatch] = useReducer(reducer, intialValue);
-  console.log(todos);
-
+const App = () => {
+  const [todos, dispatch] = useReducer(reducer, intialValue("todos"));
   useEffect(() => {
     window.localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   return (
-    <main>
-      <h1 className="heading">A todo app</h1>
-      <Form value={{ todos, dispatch }} />
-      {todos ? (
-        <ul className="todos">
-          {todos.map(todo => {
-            return (
-              <li key={todo.id} className="todo">
-                <Todo value={{ todo, todos, dispatch }} />
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        <p className="loading">loading todos...</p>
-      )}
-    </main>
+    <>
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">Bucket</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <Router>
+        <Home path="/" props={{ todos, dispatch }} />
+        <Buckets path="/about" props={{ todos, dispatch }} />
+      </Router>
+    </>
   );
-}
+};
 
-export default App;
+ReactDom.render(<App />, document.getElementById("root"));

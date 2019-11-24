@@ -6,7 +6,10 @@
   max-width: 500px;
   padding: 0;
 }
-
+.form-input {
+  display: flex;
+  align-items: flex-end;
+}
 .label {
   color: #666;
   font-size: 0.75rem;
@@ -38,4 +41,5 @@
   color: #fff;
   font-weight: bold;
   width: 125px;
+  margin: 0 0.5em;
 }
