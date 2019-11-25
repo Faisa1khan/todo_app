@@ -22,7 +22,7 @@ const App = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">Bucket</Link>
+              <Link to="/bucket">Bucket</Link>
             </li>
           </ul>
         </nav>
@@ -30,7 +30,7 @@ const App = () => {
       <TodoContext.Provider value={{ todos, dispatch }}>
         <Router>
           <Home path="/" props={{ todos, dispatch }} />
-          <Buckets path="/about" props={{ todos, dispatch }} />
+          <Buckets path="/bucket" props={{ todos, dispatch }} />
         </Router>
       </TodoContext.Provider>
     </>
