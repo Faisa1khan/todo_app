@@ -5,6 +5,7 @@ import { Router, Link } from "@reach/router";
 import Buckets from "./components/buckets";
 import { reducer } from "./reducer";
 import { intialValue } from "./intialState";
+import { TodoContext } from "./TodoContext";
 
 const App = () => {
   const [todos, dispatch] = useReducer(reducer, intialValue("todos"));
@@ -26,10 +27,12 @@ const App = () => {
           </ul>
         </nav>
       </header>
-      <Router>
-        <Home path="/" props={{ todos, dispatch }} />
-        <Buckets path="/about" props={{ todos, dispatch }} />
-      </Router>
+      <TodoContext.Provider value={{ todos, dispatch }}>
+        <Router>
+          <Home path="/" props={{ todos, dispatch }} />
+          <Buckets path="/about" props={{ todos, dispatch }} />
+        </Router>
+      </TodoContext.Provider>
     </>
   );
 };

@@ -1,7 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import "./todo.css";
+import { TodoContext } from "../TodoContext";
+
 const Todo = ({ value }) => {
-  const { todo, dispatch } = value;
+  const { dispatch } = useContext(TodoContext);
+  const { todo } = value;
 
   const [edit, setEdit] = useState(false);
 

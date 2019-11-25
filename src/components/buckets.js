@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./bucket.css";
 import Bucket from "./bucket";
 import { intialValue } from "../intialState";
+import { TodoContext } from "../TodoContext";
 
-const Buckets = ({ props }) => {
+const Buckets = () => {
   const [input, setInput] = useState("");
+  const { todos } = useContext(TodoContext);
+  const intialState = todos.filter(arr => arr.bucket);
+
   const [bucket, setBucket] = useState(intialValue("bucket"));
 
   useEffect(() => {
     window.localStorage.setItem("bucket", JSON.stringify(bucket));
   }, [bucket]);
 
-  console.log(bucket);
-  console.log(props);
-  let name = "Demo";
-
   const addBucket = e => {
     e.preventDefault();
     if (!input) return;
-
-    setBucket(list => [...list, input]);
+    setBucket(list => [...list, { id: input }]);
     setInput("");
   };
 
@@ -37,8 +36,8 @@ const Buckets = ({ props }) => {
       </form>
       <ul className="bucket-list">
         {bucket.map((name, id) => (
-          <li key={id}>
-            <Bucket name={name} props={props} />
+          <li key={id} className="bucket-item">
+            <Bucket name={name.id} state={{ bucket, setBucket }} />
           </li>
         ))}
       </ul>
@@ -47,16 +46,3 @@ const Buckets = ({ props }) => {
 };
 
 export default Buckets;
-
-// temp Bucket
-
-{
-  /* <form className="bucket">
-        <input
-          type="text"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-        />
-        <button>Submit</button>
-      </form> */
-}

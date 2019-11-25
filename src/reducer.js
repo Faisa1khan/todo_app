@@ -1,5 +1,4 @@
 export const reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case "ADD_TODO":
       return [
@@ -27,6 +26,8 @@ export const reducer = (state, action) => {
           bucket: action.name
         }
       ];
+    case "DELETE_BUCKET":
+      return [...state.filter(todo => todo.bucket !== action.name)];
     default:
       return state;
   }

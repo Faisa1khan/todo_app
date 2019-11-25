@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./form.css";
+import { TodoContext } from "../TodoContext";
 
-const Form = ({ value }) => {
-  const { dispatch } = value;
+const Form = () => {
+  const { dispatch } = useContext(TodoContext);
 
   const [input, setInput] = useState("");
 
